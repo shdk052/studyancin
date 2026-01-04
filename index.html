@@ -1,274 +1,194 @@
-import React, { useState, useEffect } from 'react';
-import { Book, Layers, CheckCircle, Trophy, ArrowRight, ArrowLeft, Sparkles, Menu, X } from 'lucide-react';
-
-/**
- * Vocabulary Master - Clean Production Version for GitHub
- * רשימת המילים המעודכנת שסיפקת
- */
-const vocabulary = [
-  { en: "Breathe", he: "לנשום" },
-  { en: "Invent", he: "להמציא" },
-  { en: "Sense", he: "חוש / היגיון" },
-  { en: "Literature", he: "ספרות" },
-  { en: "Essential", he: "חיוני / בסיסי" },
-  { en: "Fee", he: "עמלה / תשלום" },
-  { en: "Assume", he: "להניח" },
-  { en: "Refuse", he: "לסרב" },
-  { en: "Convince", he: "לשכנע" },
-  { en: "Secret", he: "סוד" },
-  { en: "Bill", he: "חשבון / שטר" },
-  { en: "Design", he: "עיצוב / לתכנן" },
-  { en: "Positive", he: "חיובי" },
-  { en: "Tear", he: "דמעה / לקרוע" },
-  { en: "Plenty of", he: "שפע של / הרבה" },
-  { en: "Experience", he: "ניסיון / חוויה" },
-  { en: "Advertisement", he: "פרסומת" },
-  { en: "Congratulations", he: "מזל טוב / ברכות" },
-  { en: "Despite", he: "למרות" },
-  { en: "Offer", he: "להציע / הצעה" },
-  { en: "Clear", he: "ברור" },
-  { en: "Somehow", he: "איכשהו" }
-];
-
-export default function App() {
-  const [activeTab, setActiveTab] = useState('dictionary');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    setIsMobileMenuOpen(false);
-  };
-
-  return (
-    <div dir="rtl" className="min-h-screen bg-slate-900 text-slate-100 selection:bg-cyan-500 selection:text-white font-sans">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700;800&display=swap');
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocab Master</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
         body { font-family: 'Assistant', sans-serif; }
         .perspective-1000 { perspective: 1000px; }
         .transform-style-3d { transform-style: preserve-3d; }
         .backface-hidden { backface-visibility: hidden; }
         .rotate-y-180 { transform: rotateY(180deg); }
-      `}</style>
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100">
+    <div id="root"></div>
 
-      {/* Header Section */}
-      <header className="relative overflow-hidden bg-slate-950 border-b border-cyan-900 shadow-2xl">
-        <div className="max-w-4xl mx-auto px-4 py-6 relative z-10">
-          <div className="flex justify-between items-center md:justify-center">
-            <div className="flex items-center gap-3">
-              <Sparkles className="text-cyan-400" size={24} />
-              <h1 className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 tracking-tight">
-                VOCABULARY MASTER
-              </h1>
-            </div>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              className="md:hidden p-2 rounded-lg text-cyan-400 hover:bg-slate-800 transition-colors z-50"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
         
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex justify-center gap-4 p-4 bg-slate-900/50 backdrop-blur-sm">
-          <NavButton active={activeTab === 'dictionary'} onClick={() => handleTabChange('dictionary')} icon={<Book size={18} />} label="מילון" />
-          <NavButton active={activeTab === 'flashcards'} onClick={() => handleTabChange('flashcards')} icon={<Layers size={18} />} label="כרטיסיות" />
-          <NavButton active={activeTab === 'quiz'} onClick={() => handleTabChange('quiz')} icon={<CheckCircle size={18} />} label="מבחן" />
-        </div>
+        // אייקונים בצורה ידנית כי Lucide ב-CDN עובד אחרת
+        const Icon = ({ name, size = 24, className = "" }) => {
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
 
-        {/* Mobile Navigation Menu */}
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 top-[4.5rem] bg-slate-900/95 backdrop-blur-md border-t border-cyan-900 shadow-xl z-40 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex flex-col p-4 space-y-2">
-              <MobileMenuItem active={activeTab === 'dictionary'} onClick={() => handleTabChange('dictionary')} icon={<Book size={20} />} label="מילון" />
-              <MobileMenuItem active={activeTab === 'flashcards'} onClick={() => handleTabChange('flashcards')} icon={<Layers size={20} />} label="כרטיסיות" />
-              <MobileMenuItem active={activeTab === 'quiz'} onClick={() => handleTabChange('quiz')} icon={<CheckCircle size={20} />} label="מבחן" />
-            </div>
-          </div>
-        )}
-      </header>
+        const vocabulary = [
+            { en: "Breathe", he: "לנשום" }, { en: "Invent", he: "להמציא" },
+            { en: "Sense", he: "חוש / היגיון" }, { en: "Literature", he: "ספרות" },
+            { en: "Essential", he: "חיוני / בסיסי" }, { en: "Fee", he: "עמלה / תשלום" },
+            { en: "Assume", he: "להניח" }, { en: "Refuse", he: "לסרב" },
+            { en: "Convince", he: "לשכנע" }, { en: "Secret", he: "סוד" },
+            { en: "Bill", he: "חשבון / שטר" }, { en: "Design", he: "עיצוב / לתכנן" },
+            { en: "Positive", he: "חיובי" }, { en: "Tear", he: "דמעה / לקרוע" },
+            { en: "Plenty of", he: "שפע של / הרבה" }, { en: "Experience", he: "ניסיון / חוויה" },
+            { en: "Advertisement", he: "פרסומת" }, { en: "Congratulations", he: "מזל טוב / ברכות" },
+            { en: "Despite", he: "למרות" }, { en: "Offer", he: "להציע / הצעה" },
+            { en: "Clear", he: "ברור" }, { en: "Somehow", he: "איכשהו" }
+        ];
 
-      {/* Main Content Area */}
-      <main className="max-w-4xl mx-auto p-4 md:p-8 min-h-[80vh]">
-        {activeTab === 'dictionary' && <DictionaryView data={vocabulary} />}
-        {activeTab === 'flashcards' && <FlashcardsView data={vocabulary} />}
-        {activeTab === 'quiz' && <QuizView data={vocabulary} />}
-      </main>
+        function App() {
+            const [activeTab, setActiveTab] = useState('dictionary');
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-      <footer className="text-center py-8 text-slate-500 text-sm border-t border-slate-800 mt-12">
-        Vocabulary Master &copy; {new Date().getFullYear()}
-      </footer>
-    </div>
-  );
-}
+            useEffect(() => {
+                lucide.createIcons();
+            }, [activeTab, isMenuOpen]);
 
-// Components for UI elements
-const NavButton = ({ active, onClick, icon, label }) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-300 border ${
-      active 
-        ? 'bg-cyan-500/10 border-cyan-500 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.3)]' 
-        : 'bg-slate-800/50 border-transparent text-slate-400 hover:text-cyan-200 hover:border-slate-700'
-    }`}
-  >
-    {icon}
-    <span className="font-bold">{label}</span>
-  </button>
-);
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <header className="bg-slate-950 border-b border-cyan-900 sticky top-0 z-50 shadow-2xl">
+                        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center md:justify-center">
+                            <div className="flex items-center gap-3">
+                                <Icon name="sparkles" className="text-cyan-400" size={24} />
+                                <h1 className="text-2xl font-black text-white tracking-tighter uppercase">VOCAB MASTER</h1>
+                            </div>
+                            <button className="md:hidden text-cyan-400" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                <Icon name={isMenuOpen ? "x" : "menu"} />
+                            </button>
+                        </div>
+                        <nav className="hidden md:flex justify-center gap-4 pb-4">
+                            <TabBtn active={activeTab === 'dictionary'} onClick={() => setActiveTab('dictionary')} label="מילון" icon="book" />
+                            <TabBtn active={activeTab === 'flashcards'} onClick={() => setActiveTab('flashcards')} label="כרטיסיות" icon="layers" />
+                            <TabBtn active={activeTab === 'quiz'} onClick={() => setActiveTab('quiz')} label="מבחן" icon="check-circle" />
+                        </nav>
+                        {isMenuOpen && (
+                            <div className="md:hidden bg-slate-900 border-t border-cyan-900 p-4 flex flex-col gap-2">
+                                <button onClick={() => {setActiveTab('dictionary'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-300 border-b border-slate-800">מילון</button>
+                                <button onClick={() => {setActiveTab('flashcards'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-300 border-b border-slate-800">כרטיסיות</button>
+                                <button onClick={() => {setActiveTab('quiz'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-300">מבחן</button>
+                            </div>
+                        )}
+                    </header>
 
-const MobileMenuItem = ({ active, onClick, icon, label }) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center gap-3 w-full p-4 rounded-lg text-right transition-all duration-200 ${
-      active ? 'bg-cyan-700/30 text-cyan-300 font-bold border-r-4 border-cyan-500' : 'text-slate-300 hover:bg-slate-800'
-    }`}
-  >
-    {icon}
-    <span className="text-lg">{label}</span>
-  </button>
-);
+                    <main className="max-w-4xl mx-auto p-4 md:p-8 flex-grow w-full">
+                        {activeTab === 'dictionary' && <Dictionary data={vocabulary} />}
+                        {activeTab === 'flashcards' && <Flashcards data={vocabulary} />}
+                        {activeTab === 'quiz' && <Quiz data={vocabulary} />}
+                    </main>
+                </div>
+            );
+        }
 
-const DictionaryView = ({ data }) => {
-  return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="bg-slate-800/50 rounded-3xl border border-slate-700 overflow-hidden backdrop-blur-sm shadow-xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-700/50">
-          {data.map((item, index) => (
-            <div key={index} className="group bg-slate-800/80 p-6 hover:bg-slate-700/80 transition-all duration-300">
-              <div className="flex flex-col h-full justify-center">
-                <span className="text-xl font-extrabold text-cyan-300 mb-1">{item.en}</span>
-                <div className="h-px w-8 bg-slate-600 mb-2 group-hover:w-full group-hover:bg-cyan-500/50 transition-all duration-500"></div>
-                <span className="text-slate-300 font-medium text-sm">{item.he}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const FlashcardsView = ({ data }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [direction, setDirection] = useState(0); 
-  
-  const currentCard = data[currentIndex];
-
-  const move = (dir) => {
-    setIsFlipped(false);
-    setDirection(dir);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + dir + data.length) % data.length);
-      setDirection(0);
-    }, 300);
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] animate-in fade-in duration-700">
-      <div className="mb-8 flex items-center gap-3">
-        <span className="text-cyan-500 font-mono text-sm">#{currentIndex + 1}</span>
-        <div className="h-1.5 w-32 bg-slate-800 rounded-full overflow-hidden">
-          <div className="h-full bg-cyan-500 transition-all duration-300" style={{ width: `${((currentIndex + 1) / data.length) * 100}%` }} />
-        </div>
-        <span className="text-slate-500 font-mono text-sm">/{data.length}</span>
-      </div>
-
-      <div className="perspective-1000 w-full max-w-sm h-72 cursor-pointer" onClick={() => setIsFlipped(!isFlipped)}>
-        <div className={`relative w-full h-full duration-700 transform-style-3d transition-all ${isFlipped ? 'rotate-y-180' : ''} ${direction !== 0 ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-          <div className="absolute inset-0 backface-hidden bg-slate-800 rounded-3xl border border-cyan-500/30 flex flex-col items-center justify-center shadow-2xl">
-            <h2 className="text-4xl font-black text-white px-2 text-center">{currentCard.en}</h2>
-            <div className="mt-4 text-cyan-500 text-xs animate-pulse font-bold">לחץ להפיכה</div>
-          </div>
-          <div className="absolute inset-0 backface-hidden rotate-y-180 bg-cyan-600 rounded-3xl flex items-center justify-center border border-cyan-400/50 shadow-2xl">
-            <h2 className="text-2xl font-bold text-white text-center px-6">{currentCard.he}</h2>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-8 mt-12">
-        <button onClick={() => move(-1)} className="p-4 rounded-full bg-slate-800 text-cyan-400 border border-slate-700 hover:scale-110 active:scale-95 transition-all shadow-lg"><ArrowRight size={24}/></button>
-        <button onClick={() => move(1)} className="p-4 rounded-full bg-cyan-500 text-white shadow-lg hover:scale-110 active:scale-95 transition-all"><ArrowLeft size={24}/></button>
-      </div>
-    </div>
-  );
-};
-
-const QuizView = ({ data }) => {
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [selected, setSelected] = useState(null);
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    if (currentIdx < data.length) {
-      const correct = data[currentIdx];
-      const others = [...data]
-        .filter((_, idx) => idx !== currentIdx)
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 3);
-      setOptions([correct, ...others].sort(() => 0.5 - Math.random()));
-      setSelected(null);
-    } else {
-      setShowResult(true);
-    }
-  }, [currentIdx, data]);
-
-  const handleSelect = (opt) => {
-    if (selected) return;
-    setSelected(opt);
-    if (opt.he === data[currentIdx].he) setScore(s => s + 1);
-    setTimeout(() => setCurrentIdx(prev => prev + 1), 1200);
-  };
-
-  if (showResult) return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-4 animate-in zoom-in duration-500">
-        <div className="bg-slate-800 p-10 rounded-[2rem] border border-slate-700 max-w-md w-full shadow-2xl">
-            <Trophy size={60} className="text-yellow-400 mx-auto mb-6" />
-            <h2 className="text-3xl font-black text-white mb-2">סיימת את המבחן!</h2>
-            <div className="text-6xl font-black text-cyan-400 mb-8">{score} / {data.length}</div>
-            <button 
-              onClick={() => {setCurrentIdx(0); setScore(0); setShowResult(false);}} 
-              className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold transition-all shadow-lg active:scale-95"
-            >
-              נסה שוב
+        const TabBtn = ({ active, onClick, label, icon }) => (
+            <button onClick={onClick} className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold transition-all ${active ? 'bg-cyan-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+                <Icon name={icon} size={18} /> {label}
             </button>
-        </div>
-    </div>
-  );
+        );
 
-  return (
-    <div className="max-w-xl mx-auto animate-in fade-in duration-500">
-      <div className="h-2 bg-slate-800 rounded-full mb-8 overflow-hidden">
-        <div className="h-full bg-cyan-500 transition-all duration-500" style={{ width: `${(currentIdx / data.length) * 100}%` }} />
-      </div>
-      <div className="bg-slate-800 rounded-2xl p-10 mb-8 text-center border border-slate-700 shadow-xl">
-        <span className="text-cyan-500/70 text-sm uppercase font-bold block mb-2">איך אומרים באנגלית:</span>
-        <h2 className="text-5xl font-black text-white tracking-tight">{data[currentIdx].en}</h2>
-      </div>
-      <div className="space-y-3">
-        {options.map((opt, i) => (
-          <button 
-            key={i} 
-            onClick={() => handleSelect(opt)} 
-            disabled={!!selected} 
-            className={`w-full p-4 text-right rounded-xl border transition-all font-bold text-lg shadow-sm ${
-              selected 
-                ? (opt.he === data[currentIdx].he 
-                    ? 'bg-green-500/20 border-green-500 text-green-300' 
-                    : (selected === opt ? 'bg-red-500/20 border-red-500 text-red-300' : 'opacity-40')) 
-                : 'bg-slate-800 border-slate-700 hover:border-cyan-500 text-slate-300 hover:bg-slate-750'
-            }`}
-          >
-            {opt.he}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
+        const Dictionary = ({ data }) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {data.map((item, i) => (
+                    <div key={i} className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500 transition-all group">
+                        <div className="text-cyan-400 font-black text-xl group-hover:scale-105 transition-transform">{item.en}</div>
+                        <div className="text-slate-400 mt-2 font-medium">{item.he}</div>
+                    </div>
+                ))}
+            </div>
+        );
+
+        const Flashcards = ({ data }) => {
+            const [idx, setIdx] = useState(0);
+            const [flipped, setFlipped] = useState(false);
+            const current = data[idx];
+
+            const next = () => { setFlipped(false); setIdx((idx + 1) % data.length); };
+            const prev = () => { setFlipped(false); setIdx((idx - 1 + data.length) % data.length); };
+
+            useEffect(() => { lucide.createIcons(); }, [idx]);
+
+            return (
+                <div className="flex flex-col items-center justify-center py-10">
+                    <div className="perspective-1000 w-full max-w-sm h-80 cursor-pointer" onClick={() => setFlipped(!flipped)}>
+                        <div className={`relative w-full h-full duration-700 transform-style-3d transition-transform ${flipped ? 'rotate-y-180' : ''}`}>
+                            <div className="absolute inset-0 backface-hidden bg-slate-800 rounded-3xl border-2 border-slate-700 flex flex-col items-center justify-center shadow-2xl">
+                                <div className="text-5xl font-black text-white">{current.en}</div>
+                                <div className="mt-8 text-cyan-500 text-xs font-bold uppercase tracking-widest animate-pulse">לחץ להפיכה</div>
+                            </div>
+                            <div className="absolute inset-0 backface-hidden rotate-y-180 bg-cyan-700 rounded-3xl flex items-center justify-center shadow-2xl border-2 border-cyan-500">
+                                <div className="text-3xl font-bold text-white text-center px-6 leading-tight">{current.he}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex gap-8 mt-12 items-center">
+                        <button onClick={prev} className="p-5 rounded-full bg-slate-800 text-white hover:bg-slate-700 border border-slate-600 transition-all active:scale-90"><Icon name="arrow-right"/></button>
+                        <div className="text-xl font-bold text-slate-500">{idx + 1} / {data.length}</div>
+                        <button onClick={next} className="p-5 rounded-full bg-cyan-600 text-white hover:bg-cyan-500 transition-all shadow-lg active:scale-90"><Icon name="arrow-left"/></button>
+                    </div>
+                </div>
+            );
+        };
+
+        const Quiz = ({ data }) => {
+            const [idx, setIdx] = useState(0);
+            const [score, setScore] = useState(0);
+            const [finished, setFinished] = useState(false);
+            const [ans, setAns] = useState(null);
+            const [opts, setOpts] = useState([]);
+
+            useEffect(() => {
+                if (idx < data.length) {
+                    const correct = data[idx];
+                    const wrong = [...data].filter(x => x.en !== correct.en).sort(() => 0.5 - Math.random()).slice(0, 3);
+                    setOpts([correct, ...wrong].sort(() => 0.5 - Math.random()));
+                    setAns(null);
+                } else { setFinished(true); }
+            }, [idx, data]);
+
+            useEffect(() => { lucide.createIcons(); }, [finished]);
+
+            if (finished) return (
+                <div className="text-center py-16 bg-slate-800 rounded-3xl border border-slate-700 max-w-md mx-auto shadow-2xl">
+                    <Icon name="trophy" size={80} className="text-yellow-400 mx-auto mb-6" />
+                    <h2 className="text-4xl font-black text-white mb-2">סיכום מבחן</h2>
+                    <div className="text-7xl font-black text-cyan-400 my-8">{score} / {data.length}</div>
+                    <button onClick={() => {setIdx(0); setScore(0); setFinished(false)}} className="bg-cyan-600 hover:bg-cyan-500 text-white px-10 py-4 rounded-full font-black transition-all shadow-lg active:scale-95">נסה שוב</button>
+                </div>
+            );
+
+            return (
+                <div className="max-w-xl mx-auto">
+                    <div className="h-2 bg-slate-800 rounded-full mb-8 overflow-hidden">
+                        <div className="h-full bg-cyan-500 transition-all duration-500" style={{width: `${(idx / data.length) * 100}%`}}></div>
+                    </div>
+                    <div className="bg-slate-800 p-12 rounded-3xl text-center border border-slate-700 mb-8 shadow-xl">
+                        <div className="text-slate-500 text-sm mb-4 uppercase font-bold tracking-widest">תרגם לאנגלית:</div>
+                        <div className="text-5xl font-black text-white">{data[idx].en}</div>
+                    </div>
+                    <div className="grid gap-4">
+                        {opts.map((o, i) => (
+                            <button key={i} onClick={() => { if(!ans) { setAns(o); if(o.en === data[idx].en) setScore(score+1); setTimeout(() => setIdx(idx+1), 1200); } }}
+                                className={`p-5 rounded-2xl border-2 text-right font-bold text-xl transition-all shadow-sm ${ans ? (o.en === data[idx].en ? 'bg-green-500/20 border-green-500 text-green-400' : (o === ans ? 'bg-red-500/20 border-red-500 text-red-400' : 'opacity-40')) : 'bg-slate-800 border-slate-700 hover:border-cyan-500 text-slate-300 hover:bg-slate-750'}`}>
+                                {o.he}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
