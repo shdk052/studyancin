@@ -5,188 +5,329 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vocab Master</title>
 
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&display=swap" rel="stylesheet" />
 
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+        };
+    </script>
+
     <style>
         body {
             font-family: "Assistant", sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
         }
     </style>
 </head>
 
 <body class="bg-slate-900 text-slate-100">
-<div id="root"></div>
+    <div id="root"></div>
 
-<script type="text/babel">
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-const { useState, useEffect, useRef } = React;
-
-const Icon = ({ name, size = 24 }) => (
-    <i data-lucide={name} style={{ width: size, height: size }}></i>
-);
-
-const vocabulary = [
-    { en: "adapt", he: "להסתגל / להתאים" },
-    { en: "afraid", he: "מפחד" },
-    { en: "allow", he: "להרשות / לאפשר" },
-    { en: "announce", he: "להודיע / להכריז" },
-    { en: "control", he: "לשלוט / שליטה" },
-    { en: "damage", he: "נזק / להזיק" },
-    { en: "drum", he: "תוף / לתופף" },
-    { en: "escape", he: "לברוח / בריחה" },
-    { en: "height", he: "גובה" },
-    { en: "joy", he: "שמחה / אושר" },
-    { en: "strategy", he: "אסטרטגיה" },
-    { en: "wonder", he: "לתהות / פלא" },
-    { en: "worried", he: "מודאג" }
-];
-
-function App() {
-    const [tab, setTab] = useState("quiz");
-
-    useEffect(() => {
-        lucide.createIcons();
-    });
-
-    return (
-        <div className="p-6">
-            <button onClick={() => setTab("quiz")} className="bg-cyan-600 px-4 py-2 rounded-xl mr-2">
-                מבחן
-            </button>
-            <button onClick={() => setTab("dict")} className="bg-slate-700 px-4 py-2 rounded-xl">
-                מילון
-            </button>
-
-            {tab === "quiz" && <Quiz data={vocabulary} />}
-            {tab === "dict" && <Dictionary data={vocabulary} />}
-        </div>
-    );
-}
-
-function Dictionary({ data }) {
-    return (
-        <div className="grid md:grid-cols-2 gap-4 mt-6">
-            {data.map((v, i) => (
-                <div key={i} className="bg-slate-800 p-4 rounded-xl">
-                    <div className="text-cyan-400 text-xl font-bold">{v.en}</div>
-                    <div>{v.he}</div>
-                </div>
-            ))}
-        </div>
-    );
-}
-
-function Quiz({ data }) {
-    const [idx, setIdx] = useState(0);
-    const [answers, setAnswers] = useState({});
-    const [finished, setFinished] = useState(false);
-    const [options, setOptions] = useState([]);
-
-    const timeoutRef = useRef(null);
-
-    // 🔥 DEBUG API לקונסול
-    useEffect(() => {
-        window.__quiz = {
-            setIdx,
-            setFinished,
-            data,
-            finish: () => setFinished(true),
-            skipToEnd: () => {
-                setIdx(data.length);
-                setFinished(true);
-            }
+        const Icon = ({ name, size = 24, className = "" }) => {
+            return (
+                <i
+                    data-lucide={name}
+                    className={className}
+                    style={{ width: size, height: size }}
+                ></i>
+            );
         };
 
-        return () => delete window.__quiz;
-    }, [data]);
+        const vocabulary = [
+            { en: "adapt", he: "להסתגל / להתאים" },
+            { en: "afraid", he: "מפחד" },
+            { en: "aid", he: "עזרה / סיוע" },
+            { en: "aim", he: "מטרה / לכוון" },
+            { en: "allow", he: "להרשות / לאפשר" },
+            { en: "announce", he: "להודיע / להכריז" },
+            { en: "appointment", he: "פגישה / תור" },
+            { en: "awake", he: "ער" },
+            { en: "behave", he: "להתנהג" },
+            { en: "common", he: "נפוץ / משותף" },
+            { en: "complete", he: "להשלים / שלם" },
+            { en: "control", he: "לשלוט / שליטה" },
+            { en: "damage", he: "נזק / להזיק" },
+            { en: "distance", he: "מרחק" },
+            { en: "drum", he: "תוף / לתופף" },
+            { en: "escape", he: "לברוח / בריחה" },
+            { en: "few", he: "מעט / כמה" },
+            { en: "guide", he: "להדריך / מדריך" },
+            { en: "height", he: "גובה" },
+            { en: "ill", he: "חולה" },
+            { en: "joy", he: "שמחה / אושר" },
+            { en: "lake", he: "אגם" },
+            { en: "local", he: "מקומי" },
+            { en: "male", he: "זכר / זכרי" },
+            { en: "medicine", he: "תרופה / רפואה" },
+            { en: "nearby", he: "בקרבת מקום" },
+            { en: "obvious", he: "ברור מאליו" },
+            { en: "poor", he: "עני / מסכן" },
+            { en: "sharp", he: "חד" },
+            { en: "straight", he: "ישר" },
+            { en: "strategy", he: "אסטרטגיה" },
+            { en: "swimming", he: "שחייה" },
+            { en: "tell", he: "להגיד / לספר" },
+            { en: "train", he: "להתאמן / רכבת" },
+            { en: "volunteer", he: "להתנדב / מתנדב" },
+            { en: "wonder", he: "לתהות / פלא" },
+            { en: "worried", he: "מודאג" },
+        ];
 
-    useEffect(() => {
-        if (idx >= data.length) return;
+        function App() {
+            const [activeTab, setActiveTab] = useState("quiz");
 
-        const correct = data[idx];
-        const wrong = [...data]
-            .filter(x => x.en !== correct.en)
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 3);
+            useEffect(() => {
+                lucide.createIcons();
+            });
 
-        setOptions([correct, ...wrong].sort(() => Math.random() - 0.5));
+            return (
+                <div className="min-h-screen p-6">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="flex gap-4 mb-8">
+                            <button
+                                onClick={() => setActiveTab("dictionary")}
+                                className="bg-slate-800 px-4 py-2 rounded-xl"
+                            >
+                                מילון
+                            </button>
 
-    }, [idx]);
+                            <button
+                                onClick={() => setActiveTab("quiz")}
+                                className="bg-cyan-600 px-4 py-2 rounded-xl"
+                            >
+                                מבחן
+                            </button>
+                        </div>
 
-    const handleAnswer = (opt) => {
-        if (answers[idx]) return;
+                        {activeTab === "dictionary" && (
+                            <Dictionary data={vocabulary} />
+                        )}
 
-        const isCorrect = opt.en === data[idx].en;
+                        {activeTab === "quiz" && (
+                            <Quiz data={vocabulary} />
+                        )}
+                    </div>
+                </div>
+            );
+        }
 
-        setAnswers(prev => ({
-            ...prev,
-            [idx]: { isCorrect }
-        }));
+        const Dictionary = ({ data }) => {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {data.map((item, i) => (
+                        <div
+                            key={i}
+                            className="bg-slate-800 p-5 rounded-2xl"
+                        >
+                            <div className="text-cyan-400 text-2xl font-black">
+                                {item.en}
+                            </div>
 
-        timeoutRef.current = setTimeout(() => {
-            if (idx + 1 < data.length) {
-                setIdx(i => i + 1);
-            } else {
-                setFinished(true);
+                            <div className="text-slate-300 mt-2">
+                                {item.he}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        const Quiz = ({ data }) => {
+            const [idx, setIdx] = useState(0);
+            const [answers, setAnswers] = useState({});
+            const [finished, setFinished] = useState(false);
+            const [currentOptions, setCurrentOptions] = useState([]);
+
+            const timeoutRef = useRef(null);
+
+            useEffect(() => {
+                if (idx < data.length) {
+                    const correct = data[idx];
+
+                    const wrong = [...data]
+                        .filter((x) => x.en !== correct.en)
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 3);
+
+                    setCurrentOptions(
+                        [correct, ...wrong].sort(
+                            () => 0.5 - Math.random()
+                        )
+                    );
+                }
+            }, [idx]);
+
+            useEffect(() => {
+                lucide.createIcons();
+            }, [idx, finished]);
+
+            useEffect(() => {
+                return () => {
+                    clearTimeout(timeoutRef.current);
+                };
+            }, []);
+
+            const handleAnswer = (option) => {
+                if (answers[idx]) return;
+
+                const isCorrect = option.en === data[idx].en;
+
+                setAnswers({
+                    ...answers,
+                    [idx]: {
+                        selected: option,
+                        correct: data[idx],
+                        isCorrect,
+                    },
+                });
+
+                timeoutRef.current = setTimeout(() => {
+                    if (idx + 1 < data.length) {
+                        setIdx((prev) => prev + 1);
+                    } else {
+                        setFinished(true);
+                    }
+                }, 1000);
+            };
+
+            const reset = () => {
+                clearTimeout(timeoutRef.current);
+
+                setIdx(0);
+                setAnswers({});
+                setFinished(false);
+                setCurrentOptions([]);
+            };
+
+            if (finished) {
+                const score = Object.values(answers).filter(
+                    (a) => a.isCorrect
+                ).length;
+
+                return (
+                    <div className="bg-slate-800 p-10 rounded-3xl text-center">
+                        <Icon
+                            name="trophy"
+                            className="mx-auto text-yellow-400 mb-6"
+                            size={64}
+                        />
+
+                        <h2 className="text-4xl font-black mb-6">
+                            המבחן הסתיים!
+                        </h2>
+
+                        <div className="text-6xl font-black text-cyan-400 mb-6">
+                            {Math.round((score / data.length) * 100)}%
+                        </div>
+
+                        <p className="text-xl text-slate-300 mb-8">
+                            ענית נכון על {score} מתוך {data.length}
+                        </p>
+
+                        <button
+                            onClick={reset}
+                            className="bg-cyan-600 hover:bg-cyan-500 transition px-8 py-4 rounded-2xl text-xl font-black"
+                        >
+                            נסה שוב
+                        </button>
+                    </div>
+                );
             }
-        }, 800);
-    };
 
-    const reset = () => {
-        clearTimeout(timeoutRef.current);
-        setIdx(0);
-        setAnswers({});
-        setFinished(false);
-    };
+            const current = data[idx];
+            const answer = answers[idx];
 
-    if (finished) {
-        const score = Object.values(answers).filter(a => a.isCorrect).length;
+            return (
+                <div className="max-w-2xl mx-auto">
+                    <div className="mb-8">
+                        <div className="text-slate-400 mb-2">
+                            שאלה {idx + 1} מתוך {data.length}
+                        </div>
 
-        return (
-            <div className="text-center mt-10">
-                <h1 className="text-3xl font-bold mb-4">סיימת!</h1>
-                <p className="text-2xl text-cyan-400">{Math.round(score / data.length * 100)}%</p>
-                <button onClick={reset} className="mt-6 bg-cyan-600 px-6 py-3 rounded-xl">
-                    נסה שוב
-                </button>
-            </div>
+                        <h2 className="text-3xl font-black">
+                            מה התרגום של:
+                        </h2>
+                    </div>
+
+                    <div className="bg-slate-800 p-12 rounded-3xl text-center mb-8">
+                        <div className="text-5xl font-black text-cyan-400">
+                            {current.en}
+                        </div>
+                    </div>
+
+                    <div className="grid gap-4">
+                        {currentOptions.map((opt, i) => {
+                            let classes =
+                                "bg-slate-800 border-slate-700 hover:border-cyan-500";
+
+                            if (answer) {
+                                if (opt.en === current.en) {
+                                    classes =
+                                        "bg-green-900/30 border-green-500";
+                                } else if (
+                                    answer.selected.en === opt.en
+                                ) {
+                                    classes =
+                                        "bg-red-900/30 border-red-500";
+                                } else {
+                                    classes =
+                                        "opacity-50 bg-slate-800 border-slate-700";
+                                }
+                            }
+
+                            return (
+                                <button
+                                    key={i}
+                                    onClick={() => handleAnswer(opt)}
+                                    className={`border-2 p-5 rounded-2xl text-right text-xl font-bold transition-all ${classes}`}
+                                >
+                                    {opt.he}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
         );
-    }
 
-    return (
-        <div className="mt-10">
-            <h2 className="text-2xl mb-4">
-                שאלה {idx + 1} / {data.length}
-            </h2>
-
-            <div className="text-4xl font-bold mb-6 text-cyan-400">
-                {data[idx].en}
-            </div>
-
-            <div className="grid gap-3">
-                {options.map((o, i) => (
-                    <button
-                        key={i}
-                        onClick={() => handleAnswer(o)}
-                        className="bg-slate-800 p-4 rounded-xl"
-                    >
-                        {o.he}
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
-
-</script>
+        root.render(<App />);
+    </script>
 </body>
 </html>
