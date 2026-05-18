@@ -14,15 +14,20 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <style>
-        body { font-family: 'Assistant', sans-serif; }
+        body { font-family: 'Assistant', sans-serif; transition: background-color 0.3s, color 0.3s; }
         .perspective-1000 { perspective: 1000px; }
         .transform-style-3d { transform-style: preserve-3d; }
         .backface-hidden { backface-visibility: hidden; }
         .rotate-y-180 { transform: rotateY(180deg); }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100">
+<body class="bg-slate-900 text-slate-100 dark:bg-slate-900 dark:text-slate-100">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -33,385 +38,135 @@
         };
 
         const vocabulary = [
-            {
-                        "en": "adapt",
-                        "he": "להסתגל / להתאים"
-            },
-            {
-                        "en": "afraid",
-                        "he": "מפחד"
-            },
-            {
-                        "en": "aid",
-                        "he": "עזרה / סיוע"
-            },
-            {
-                        "en": "aim",
-                        "he": "מטרה / לכוון"
-            },
-            {
-                        "en": "all day long",
-                        "he": "כל היום / במשך כל היום"
-            },
-            {
-                        "en": "allow",
-                        "he": "להרשות / לאפשר"
-            },
-            {
-                        "en": "although",
-                        "he": "למרות ש... / אף על פי ש..."
-            },
-            {
-                        "en": "announce",
-                        "he": "להודיע / להכריז"
-            },
-            {
-                        "en": "appointment",
-                        "he": "פגישה / תור (לרופא וכדומה)"
-            },
-            {
-                        "en": "approximately",
-                        "he": "בערך / בקירוב"
-            },
-            {
-                        "en": "around",
-                        "he": "מסביב / בסביבה"
-            },
-            {
-                        "en": "as far as I know",
-                        "he": "למיטב ידיעתי / ככל הידוע לי"
-            },
-            {
-                        "en": "at first",
-                        "he": "בהתחלה / בתחילה"
-            },
-            {
-                        "en": "at present",
-                        "he": "כיום / כרגע / בזמן הנוכחי"
-            },
-            {
-                        "en": "Attention!",
-                        "he": "תשומת לב! / שים לב!"
-            },
-            {
-                        "en": "awake",
-                        "he": "ער"
-            },
-            {
-                        "en": "behave",
-                        "he": "להתנהג"
-            },
-            {
-                        "en": "bite",
-                        "he": "לנשוך / נשיכה"
-            },
-            {
-                        "en": "capable of",
-                        "he": "מסוגל ל..."
-            },
-            {
-                        "en": "carry out",
-                        "he": "לבצע / להוציא לפועל"
-            },
-            {
-                        "en": "come down",
-                        "he": "לרדת / לחלות (בביטויים מסוימים)"
-            },
-            {
-                        "en": "common",
-                        "he": "נפוץ / משותף"
-            },
-            {
-                        "en": "complete",
-                        "he": "להשלים / שלם"
-            },
-            {
-                        "en": "concern",
-                        "he": "דאגה / עניין / להדאיג"
-            },
-            {
-                        "en": "control",
-                        "he": "לשלוט / שליטה"
-            },
-            {
-                        "en": "damage",
-                        "he": "נזק / להזיק"
-            },
-            {
-                        "en": "deal with",
-                        "he": "להתמודד עם / לעסוק ב..."
-            },
-            {
-                        "en": "death",
-                        "he": "מוות"
-            },
-            {
-                        "en": "disappear",
-                        "he": "להיעלם"
-            },
-            {
-                        "en": "distance",
-                        "he": "מרחק"
-            },
-            {
-                        "en": "drum",
-                        "he": "תוף / לתופף"
-            },
-            {
-                        "en": "escape",
-                        "he": "לברוח / בריחה"
-            },
-            {
-                        "en": "female",
-                        "he": "נקבה / נקבי"
-            },
-            {
-                        "en": "few",
-                        "he": "מעט / כמה"
-            },
-            {
-                        "en": "first of all",
-                        "he": "קודם כל / ראשית כל"
-            },
-            {
-                        "en": "generally",
-                        "he": "בדרך כלל / באופן כללי"
-            },
-            {
-                        "en": "go back",
-                        "he": "לחזור"
-            },
-            {
-                        "en": "go out",
-                        "he": "לצאת (לבילוי וכדומה)"
-            },
-            {
-                        "en": "go up",
-                        "he": "לעלות"
-            },
-            {
-                        "en": "go well",
-                        "he": "להצליח / להתנהל כשורה"
-            },
-            {
-                        "en": "Good for you!",
-                        "he": "כל הכבוד לך! / יפה מאוד!"
-            },
-            {
-                        "en": "guide",
-                        "he": "להדריך / מדריך"
-            },
-            {
-                        "en": "hand in",
-                        "he": "להגיש / למסור (למשל שיעורי בית)"
-            },
-            {
-                        "en": "hand out",
-                        "he": "לחלק (למשל דפים)"
-            },
-            {
-                        "en": "have a plan",
-                        "he": "שיש לו תוכנית / לתכנן"
-            },
-            {
-                        "en": "height",
-                        "he": "גובה"
-            },
-            {
-                        "en": "high",
-                        "he": "גבוה"
-            },
-            {
-                        "en": "if I were you",
-                        "he": "אם הייתי במקומך"
-            },
-            {
-                        "en": "ill",
-                        "he": "חולה"
-            },
-            {
-                        "en": "in the end",
-                        "he": "בסופו של דבר / בסוף"
-            },
-            {
-                        "en": "jazz",
-                        "he": "ג\"אז (סגנון מוזיקה)"
-            },
-            {
-                        "en": "jewelry",
-                        "he": "תכשיטים"
-            },
-            {
-                        "en": "joy",
-                        "he": "שמחה / אושר"
-            },
-            {
-                        "en": "lake",
-                        "he": "אגם"
-            },
-            {
-                        "en": "lately",
-                        "he": "לאחרונה"
-            },
-            {
-                        "en": "latest",
-                        "he": "העדכני ביותר / האחרון ביותר"
-            },
-            {
-                        "en": "leave out",
-                        "he": "להשמיט / להשאיר בחוץ"
-            },
-            {
-                        "en": "local",
-                        "he": "מקומי"
-            },
-            {
-                        "en": "look out",
-                        "he": "להיזהר / להשקיף"
-            },
-            {
-                        "en": "look up",
-                        "he": "לחפש (מידע במילון/ספר) / להביט למעלה"
-            },
-            {
-                        "en": "majority",
-                        "he": "רוב"
-            },
-            {
-                        "en": "male",
-                        "he": "זכר / זכרי"
-            },
-            {
-                        "en": "medicine",
-                        "he": "תרופה / רפואה"
-            },
-            {
-                        "en": "nearby",
-                        "he": "בקרבת מקום / סמוך"
-            },
-            {
-                        "en": "obvious",
-                        "he": "ברור מאליו / מובן מאליו"
-            },
-            {
-                        "en": "poor",
-                        "he": "עני / מסכן"
-            },
-            {
-                        "en": "potential",
-                        "he": "פוטנציאל / פוטנציאלי"
-            },
-            {
-                        "en": "put off",
-                        "he": "לדחות (ליום אחר)"
-            },
-            {
-                        "en": "put on",
-                        "he": "ללבוש / לעטות"
-            },
-            {
-                        "en": "quite a bit",
-                        "he": "די הרבה / לא מעט"
-            },
-            {
-                        "en": "sharp",
-                        "he": "חד"
-            },
-            {
-                        "en": "simply",
-                        "he": "פשוט / בצורה פשוטה"
-            },
-            {
-                        "en": "straight",
-                        "he": "ישר"
-            },
-            {
-                        "en": "strategy",
-                        "he": "אסטרטגיה"
-            },
-            {
-                        "en": "swimming",
-                        "he": "שחייה"
-            },
-            {
-                        "en": "take a break",
-                        "he": "לקחת הפסקה"
-            },
-            {
-                        "en": "take a deep breath",
-                        "he": "לקחת נשימה עמוקה"
-            },
-            {
-                        "en": "take an exam",
-                        "he": "להיבחן / לעשות מבחן"
-            },
-            {
-                        "en": "take back",
-                        "he": "לקחת בחזרה / להתחרט על מילים שנאמרו"
-            },
-            {
-                        "en": "take out",
-                        "he": "להוציא"
-            },
-            {
-                        "en": "take seriously",
-                        "he": "לקחת ברצינות"
-            },
-            {
-                        "en": "take up",
-                        "he": "להתחיל לעסוק ב... (תחביב וכדומה) / לתפוס (מקום או זמן)"
-            },
-            {
-                        "en": "tell",
-                        "he": "להגיד / לספר"
-            },
-            {
-                        "en": "tend to",
-                        "he": "לנטות ל... (לעשות משהו)"
-            },
-            {
-                        "en": "train",
-                        "he": "להתאמן / רכבת"
-            },
-            {
-                        "en": "volunteer",
-                        "he": "להתנדב / מתנדב"
-            },
-            {
-                        "en": "western",
-                        "he": "מערבי"
-            },
-            {
-                        "en": "what if...?",
-                        "he": "מה אם...?"
-            },
-            {
-                        "en": "wonder",
-                        "he": "לתהות / פלא"
-            },
-            {
-                        "en": "worried",
-                        "he": "מודאג"
-            }
-];
+            { "en": "adapt", "he": "להסתגל / להתאים" },
+            { "en": "afraid", "he": "מפחד" },
+            { "en": "aid", "he": "עזרה / סיוע" },
+            { "en": "aim", "he": "מטרה / לכוון" },
+            { "en": "all day long", "he": "כל היום / במשך כל היום" },
+            { "en": "allow", "he": "להרשות / לאפשר" },
+            { "en": "although", "he": "למרות ש... / אף על פי ש..." },
+            { "en": "announce", "he": "להודיע / להכריז" },
+            { "en": "appointment", "he": "פגישה / תור (לרופא וכדומה)" },
+            { "en": "approximately", "he": "בערך / בקירוב" },
+            { "en": "around", "he": "מסביב / בסביבה" },
+            { "en": "as far as I know", "he": "למיטב ידיעתי / ככל הידוע לי" },
+            { "en": "at first", "he": "בהתחלה / בתחילה" },
+            { "en": "at present", "he": "כיום / כרגע / בזמן הנוכחי" },
+            { "en": "Attention!", "he": "תשומת לב! / שים לב!" },
+            { "en": "awake", "he": "ער" },
+            { "en": "behave", "he": "להתנהג" },
+            { "en": "bite", "he": "לנשוך / נשיכה" },
+            { "en": "capable of", "he": "מסוגל ל..." },
+            { "en": "carry out", "he": "לבצע / להוציא לפועל" },
+            { "en": "come down", "he": "לרדת / לחלות (בביטויים מסוימים)" },
+            { "en": "common", "he": "נפוץ / משותף" },
+            { "en": "complete", "he": "להשלים / שלם" },
+            { "en": "concern", "he": "דאגה / עניין / להדאיג" },
+            { "en": "control", "he": "לשלוט / שליטה" },
+            { "en": "damage", "he": "נזק / להזיק" },
+            { "en": "deal with", "he": "להתמודד עם / לעסוק ב..." },
+            { "en": "death", "he": "מוות" },
+            { "en": "disappear", "he": "להיעלם" },
+            { "en": "distance", "he": "מרחק" },
+            { "en": "drum", "he": "תוף / לתופף" },
+            { "en": "escape", "he": "לברוח / בריחה" },
+            { "en": "female", "he": "נקבה / נקבי" },
+            { "en": "few", "he": "מעט / כמה" },
+            { "en": "first of all", "he": "קודם כל / ראשית כל" },
+            { "en": "generally", "he": "בדרך כלל / באופן כללי" },
+            { "en": "go back", "he": "לחזור" },
+            { "en": "go out", "he": "לצאת (לבילוי וכדומה)" },
+            { "en": "go up", "he": "לעלות" },
+            { "en": "go well", "he": "להצליח / להתנהל כשורה" },
+            { "en": "Good for you!", "he": "כל הכבוד לך! / יפה מאוד!" },
+            { "en": "guide", "he": "להדריך / מדריך" },
+            { "en": "hand in", "he": "להגיש / למסור (למשל שיעורי בית)" },
+            { "en": "hand out", "he": "לחלק (למשל דפים)" },
+            { "en": "have a plan", "he": "שיש לו תוכנית / לתכנן" },
+            { "en": "height", "he": "גובה" },
+            { "en": "high", "he": "גבוה" },
+            { "en": "if I were you", "he": "אם הייתי במקומך" },
+            { "en": "ill", "he": "חולה" },
+            { "en": "in the end", "he": "בסופו של דבר / בסוף" },
+            { "en": "jazz", "he": "ג\"אז (סגנון מוזיקה)" },
+            { "en": "jewelry", "he": "תכשיטים" },
+            { "en": "joy", "he": "שמחה / אושר" },
+            { "en": "lake", "he": "אגם" },
+            { "en": "lately", "he": "לאחרונה" },
+            { "en": "latest", "he": "העדכני ביותר / האחרון ביותר" },
+            { "en": "leave out", "he": "להשמיט / להשאיר בחוץ" },
+            { "en": "local", "he": "מקומי" },
+            { "en": "look out", "he": "להיזהר / להשקיף" },
+            { "en": "look up", "he": "לחפש (מידע במילון/ספר) / להביט למעלה" },
+            { "en": "majority", "he": "רוב" },
+            { "en": "male", "he": "זכר / זכרי" },
+            { "en": "medicine", "he": "תרופה / רפואה" },
+            { "en": "nearby", "he": "בקרבת מקום / סמוך" },
+            { "en": "obvious", "he": "ברור מאליו / מובן מאליו" },
+            { "en": "poor", "he": "עני / מסכן" },
+            { "en": "potential", "he": "פוטנציאל / פוטנציאלי" },
+            { "en": "put off", "he": "לדחות (ליום אחר)" },
+            { "en": "put on", "he": "ללבוש / לעטות" },
+            { "en": "quite a bit", "he": "די הרבה / לא מעט" },
+            { "en": "sharp", "he": "חד" },
+            { "en": "simply", "he": "פשוט / בצורה פשוטה" },
+            { "en": "straight", "he": "ישר" },
+            { "en": "strategy", "he": "אסטרטגיה" },
+            { "en": "swimming", "he": "שחייה" },
+            { "en": "take a break", "he": "לקחת הפסקה" },
+            { "en": "take a deep breath", "he": "לקחת נשימה עמוקה" },
+            { "en": "take an exam", "he": "להיבחן / לעשות מבחן" },
+            { "en": "take back", "he": "לקחת בחזרה / להתחרט על מילים שנאמרו" },
+            { "en": "take out", "he": "להוציא" },
+            { "en": "take seriously", "he": "לקחת ברצינות" },
+            { "en": "take up", "he": "להתחיל לעסוק ב... (תחביב וכדומה) / לתפוס (מקום או זמן)" },
+            { "en": "tell", "he": "להגיד / לספר" },
+            { "en": "tend to", "he": "לנטות ל... (לעשות משהו)" },
+            { "en": "train", "he": "להתאמן / רכבת" },
+            { "en": "volunteer", "he": "להתנדב / מתנדב" },
+            { "en": "western", "he": "מערבי" },
+            { "en": "what if...?", "he": "מה אם...?" },
+            { "en": "wonder", "he": "לתהות / פלא" },
+            { "en": "worried", "he": "מודאג" }
+        ];
 
         function App() {
             const [activeTab, setActiveTab] = useState('dictionary');
             const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [isDarkMode, setIsDarkMode] = useState(true);
+
+            useEffect(() => {
+                if (isDarkMode) {
+                    document.documentElement.classList.add('dark');
+                    document.body.className = "bg-slate-900 text-slate-100";
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.body.className = "bg-slate-50 text-slate-900";
+                }
+            }, [isDarkMode]);
 
             useEffect(() => {
                 lucide.createIcons();
-            }, [activeTab, isMenuOpen]);
+            }, [activeTab, isMenuOpen, isDarkMode]);
 
             return (
-                <div className="min-h-screen flex flex-col">
-                    <header className="bg-slate-950 border-b border-cyan-900 sticky top-0 z-50 shadow-2xl">
-                        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center md:justify-center">
+                <div className="min-h-screen flex flex-col transition-colors duration-300">
+                    <header className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-cyan-900 sticky top-0 z-50 shadow-lg transition-colors duration-300">
+                        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+                            <button 
+                                onClick={() => setIsDarkMode(!isDarkMode)}
+                                className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-cyan-400 hover:scale-110 transition-all shadow-sm border border-slate-200 dark:border-slate-700"
+                                title={isDarkMode ? "מעבר למצב בהיר" : "מעבר למצב כהה"}
+                            >
+                                <Icon name={isDarkMode ? "sun" : "moon"} size={20} />
+                            </button>
+
                             <div className="flex items-center gap-3">
-                                <Icon name="sparkles" className="text-cyan-400" size={24} />
-                                <h1 className="text-2xl font-black text-white tracking-tighter uppercase">VOCAB MASTER</h1>
+                                <Icon name="sparkles" className="text-cyan-600 dark:text-cyan-400" size={24} />
+                                <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase">VOCAB MASTER</h1>
                             </div>
-                            <button className="md:hidden text-cyan-400" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+
+                            <button className="md:hidden text-cyan-600 dark:text-cyan-400" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                                 <Icon name={isMenuOpen ? "x" : "menu"} />
                             </button>
                         </div>
@@ -421,10 +176,10 @@
                             <TabBtn active={activeTab === 'quiz'} onClick={() => setActiveTab('quiz')} label="מבחן" icon="check-circle" />
                         </nav>
                         {isMenuOpen && (
-                            <div className="md:hidden bg-slate-900 border-t border-cyan-900 p-4 flex flex-col gap-2">
-                                <button onClick={() => {setActiveTab('dictionary'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-300 border-b border-slate-800">מילון</button>
-                                <button onClick={() => {setActiveTab('flashcards'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-300 border-b border-slate-800">כרטיסיות</button>
-                                <button onClick={() => {setActiveTab('quiz'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-300">מבחן</button>
+                            <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-cyan-900 p-4 flex flex-col gap-2 transition-colors duration-300">
+                                <button onClick={() => {setActiveTab('dictionary'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-600 dark:text-slate-300 border-b border-slate-100 dark:border-slate-800">מילון</button>
+                                <button onClick={() => {setActiveTab('flashcards'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-600 dark:text-slate-300 border-b border-slate-100 dark:border-slate-800">כרטיסיות</button>
+                                <button onClick={() => {setActiveTab('quiz'); setIsMenuOpen(false)}} className="p-3 text-right text-slate-600 dark:text-slate-300">מבחן</button>
                             </div>
                         )}
                     </header>
@@ -439,7 +194,7 @@
         }
 
         const TabBtn = ({ active, onClick, label, icon }) => (
-            <button onClick={onClick} className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold transition-all ${active ? 'bg-cyan-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <button onClick={onClick} className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold transition-all ${active ? 'bg-cyan-600 text-white shadow-lg' : 'text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
                 <Icon name={icon} size={18} /> {label}
             </button>
         );
@@ -447,9 +202,9 @@
         const Dictionary = ({ data }) => (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {data.map((item, i) => (
-                    <div key={i} className="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500 transition-all group">
-                        <div className="text-cyan-400 font-black text-xl group-hover:scale-105 transition-transform">{item.en}</div>
-                        <div className="text-slate-400 mt-2 font-medium">{item.he}</div>
+                    <div key={i} className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-all group shadow-sm hover:shadow-md">
+                        <div className="text-cyan-600 dark:text-cyan-400 font-black text-xl group-hover:scale-105 transition-transform">{item.en}</div>
+                        <div className="text-slate-600 dark:text-slate-400 mt-2 font-medium">{item.he}</div>
                     </div>
                 ))}
             </div>
@@ -469,18 +224,18 @@
                 <div className="flex flex-col items-center justify-center py-10">
                     <div className="perspective-1000 w-full max-w-sm h-80 cursor-pointer" onClick={() => setFlipped(!flipped)}>
                         <div className={`relative w-full h-full duration-700 transform-style-3d transition-transform ${flipped ? 'rotate-y-180' : ''}`}>
-                            <div className="absolute inset-0 backface-hidden bg-slate-800 rounded-3xl border-2 border-slate-700 flex flex-col items-center justify-center shadow-2xl">
-                                <div className="text-5xl font-black text-white">{current.en}</div>
-                                <div className="mt-8 text-cyan-500 text-xs font-bold uppercase tracking-widest animate-pulse">לחץ להפיכה</div>
+                            <div className="absolute inset-0 backface-hidden bg-white dark:bg-slate-800 rounded-3xl border-2 border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center shadow-2xl">
+                                <div className="text-5xl font-black text-slate-900 dark:text-white">{current.en}</div>
+                                <div className="mt-8 text-cyan-600 dark:text-cyan-500 text-xs font-bold uppercase tracking-widest animate-pulse">לחץ להפיכה</div>
                             </div>
-                            <div className="absolute inset-0 backface-hidden rotate-y-180 bg-cyan-700 rounded-3xl flex items-center justify-center shadow-2xl border-2 border-cyan-500">
+                            <div className="absolute inset-0 backface-hidden rotate-y-180 bg-cyan-600 dark:bg-cyan-700 rounded-3xl flex items-center justify-center shadow-2xl border-2 border-cyan-500">
                                 <div className="text-3xl font-bold text-white text-center px-6 leading-tight">{current.he}</div>
                             </div>
                         </div>
                     </div>
                     <div className="flex gap-8 mt-12 items-center">
-                        <button onClick={prev} className="p-5 rounded-full bg-slate-800 text-white hover:bg-slate-700 border border-slate-600 transition-all active:scale-90"><Icon name="arrow-right"/></button>
-                        <div className="text-xl font-bold text-slate-500">{idx + 1} / {data.length}</div>
+                        <button onClick={prev} className="p-5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600 transition-all active:scale-90 shadow-md"><Icon name="arrow-right"/></button>
+                        <div className="text-xl font-bold text-slate-400 dark:text-slate-500">{idx + 1} / {data.length}</div>
                         <button onClick={next} className="p-5 rounded-full bg-cyan-600 text-white hover:bg-cyan-500 transition-all shadow-lg active:scale-90"><Icon name="arrow-left"/></button>
                     </div>
                 </div>
@@ -489,11 +244,10 @@
 
         const Quiz = ({ data }) => {
             const [idx, setIdx] = useState(0);
-            const [answers, setAnswers] = useState({}); // Stores results for each question
+            const [answers, setAnswers] = useState({});
             const [finished, setFinished] = useState(false);
             const [currentOptions, setCurrentOptions] = useState([]);
 
-            // Generate options once per question
             useEffect(() => {
                 if (idx < data.length) {
                     const correct = data[idx];
@@ -505,7 +259,7 @@
             useEffect(() => { lucide.createIcons(); }, [idx, finished]);
 
             const handleAnswer = (option) => {
-                if (answers[idx]) return; // Prevent changing answer
+                if (answers[idx]) return;
                 
                 const isCorrect = option.en === data[idx].en;
                 setAnswers({
@@ -517,7 +271,6 @@
                     }
                 });
 
-                // Auto-advance after a delay
                 setTimeout(() => {
                     if (idx + 1 < data.length) {
                         setIdx(idx + 1);
@@ -527,125 +280,62 @@
                 }, 1000);
             };
 
-            const skip = () => {
-                if (idx + 1 < data.length) {
-                    setIdx(idx + 1);
-                } else {
-                    setFinished(true);
-                }
-            };
-
-            const back = () => {
-                if (idx > 0) setIdx(idx - 1);
-            };
-
             const reset = () => {
                 setIdx(0);
                 setAnswers({});
                 setFinished(false);
             };
 
-            const score = Object.values(answers).filter(a => a.isCorrect).length;
-            const grade = Math.round((score / data.length) * 100);
-
-            if (finished) return (
-                <div className="max-w-2xl mx-auto">
-                    <div className="text-center py-12 bg-slate-800 rounded-3xl border border-slate-700 shadow-2xl mb-8">
-                        <Icon name="trophy" size={80} className="text-yellow-400 mx-auto mb-6" />
-                        <h2 className="text-4xl font-black text-white mb-2">סיכום מבחן</h2>
-                        <div className="flex justify-center gap-8 my-8">
-                            <div className="text-center">
-                                <div className="text-slate-400 text-sm uppercase font-bold">הצלחה</div>
-                                <div className="text-5xl font-black text-cyan-400">{score} / {data.length}</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-slate-400 text-sm uppercase font-bold">ציון</div>
-                                <div className="text-5xl font-black text-green-400">{grade}</div>
-                            </div>
-                        </div>
-                        <button onClick={reset} className="bg-cyan-600 hover:bg-cyan-500 text-white px-10 py-4 rounded-full font-black transition-all shadow-lg active:scale-95">נסה שוב</button>
+            if (finished) {
+                const score = Object.values(answers).filter(a => a.isCorrect).length;
+                return (
+                    <div className="text-center py-12 bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+                        <Icon name="trophy" className="mx-auto text-yellow-500 mb-6" size={64} />
+                        <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-2">המבחן הסתיים!</h2>
+                        <div className="text-6xl font-black text-cyan-600 dark:text-cyan-400 my-8">{Math.round((score / data.length) * 100)}%</div>
+                        <p className="text-xl text-slate-600 dark:text-slate-400 mb-8">ענית נכון על {score} מתוך {data.length} מילים.</p>
+                        <button onClick={reset} className="px-10 py-4 bg-cyan-600 text-white rounded-2xl font-black text-xl hover:bg-cyan-500 transition-all shadow-lg">נסה שוב</button>
                     </div>
+                );
+            }
 
-                    <h3 className="text-2xl font-bold mb-4 text-white">ניתוח תוצאות:</h3>
-                    <div className="grid gap-4">
-                        {data.map((item, i) => {
-                            const result = answers[i];
-                            if (!result) return null;
-                            return (
-                                <div key={i} className={`p-4 rounded-2xl border ${result.isCorrect ? 'bg-green-500/10 border-green-500/50' : 'bg-red-500/10 border-red-500/50'}`}>
-                                    <div className="flex justify-between items-center">
-                                        <div>
-                                            <div className="font-bold text-white">{item.en}</div>
-                                            <div className="text-sm text-slate-400">{item.he}</div>
-                                        </div>
-                                        <div className="text-right">
-                                            {result.isCorrect ? (
-                                                <span className="text-green-400 font-bold flex items-center gap-1"><Icon name="check" size={16}/> נכון</span>
-                                            ) : (
-                                                <div>
-                                                    <div className="text-red-400 font-bold flex items-center gap-1"><Icon name="x" size={16}/> טעות</div>
-                                                    <div className="text-xs text-slate-500">בחרת: {result.selected.he}</div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            );
-
-            const currentResult = answers[idx];
+            const current = data[idx];
+            const answer = answers[idx];
 
             return (
-                <div className="max-w-xl mx-auto">
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="text-slate-400 font-bold">שאלה {idx + 1} מתוך {data.length}</div>
-                        <div className="text-cyan-400 font-bold">ניקוד: {score}</div>
-                    </div>
-                    
-                    <div className="h-3 bg-slate-800 rounded-full mb-8 overflow-hidden">
-                        <div className="h-full bg-cyan-500 transition-all duration-500" style={{width: `${((idx + 1) / data.length) * 100}%`}}></div>
+                <div className="max-w-2xl mx-auto">
+                    <div className="mb-8 flex justify-between items-end">
+                        <div>
+                            <div className="text-slate-400 dark:text-slate-500 font-bold mb-1">שאלה {idx + 1} מתוך {data.length}</div>
+                            <h2 className="text-3xl font-black text-slate-900 dark:text-white">מה התרגום של:</h2>
+                        </div>
                     </div>
 
-                    <div className="bg-slate-800 p-12 rounded-3xl text-center border border-slate-700 mb-8 shadow-xl relative group">
-                        <div className="text-slate-500 text-sm mb-4 uppercase font-bold tracking-widest">תרגם לאנגלית:</div>
-                        <div className="text-5xl font-black text-white">{data[idx].en}</div>
+                    <div className="bg-white dark:bg-slate-800 p-12 rounded-3xl border-2 border-slate-200 dark:border-slate-700 shadow-xl mb-8 text-center">
+                        <div className="text-5xl font-black text-cyan-600 dark:text-cyan-400">{current.en}</div>
                     </div>
 
-                    <div className="grid gap-4 mb-8">
-                        {currentOptions.map((o, i) => {
-                            let statusClasses = "bg-slate-800 border-slate-700 hover:border-cyan-500 text-slate-300 hover:bg-slate-750";
-                            
-                            if (currentResult) {
-                                if (o.en === data[idx].en) {
-                                    statusClasses = "bg-green-500/20 border-green-500 text-green-400";
-                                } else if (o.en === currentResult.selected.en) {
-                                    statusClasses = "bg-red-500/20 border-red-500 text-red-400";
-                                } else {
-                                    statusClasses = "bg-slate-800 border-slate-700 text-slate-600 opacity-50";
-                                }
+                    <div className="grid grid-cols-1 gap-4">
+                        {currentOptions.map((opt, i) => {
+                            let statusClasses = "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-cyan-500";
+                            if (answer) {
+                                if (opt.en === current.en) statusClasses = "bg-green-100 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-400";
+                                else if (answer.selected.en === opt.en) statusClasses = "bg-red-100 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-400";
+                                else statusClasses = "opacity-50 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700";
                             }
 
                             return (
-                                <button key={i} 
-                                    disabled={!!currentResult}
-                                    onClick={() => handleAnswer(o)}
-                                    className={`p-5 rounded-2xl border-2 text-right font-bold text-xl transition-all shadow-sm ${statusClasses}`}>
-                                    {o.he}
+                                <button 
+                                    key={i} 
+                                    onClick={() => handleAnswer(opt)}
+                                    className={`p-5 rounded-2xl border-2 font-bold text-xl transition-all text-right flex justify-between items-center ${statusClasses}`}
+                                >
+                                    <span>{opt.he}</span>
+                                    {answer && opt.en === current.en && <Icon name="check" size={20} />}
+                                    {answer && answer.selected.en === opt.en && opt.en !== current.en && <Icon name="x" size={20} />}
                                 </button>
                             );
                         })}
-                    </div>
-
-                    <div className="flex justify-between gap-4">
-                        <button onClick={back} disabled={idx === 0} className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all ${idx === 0 ? 'text-slate-600 cursor-not-allowed' : 'bg-slate-800 text-white hover:bg-slate-700'}`}>
-                            <Icon name="chevron-right" size={20} /> חזור
-                        </button>
-                        <button onClick={skip} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white font-bold hover:bg-slate-700 transition-all">
-                            דלג <Icon name="chevron-left" size={20} />
-                        </button>
                     </div>
                 </div>
             );
