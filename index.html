@@ -34,7 +34,7 @@
         const { useState, useEffect, useMemo } = React;
         
         const Icon = ({ name, size = 24, className = "" }) => {
-            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+            return <i key={name} data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
         };
 
         const vocabulary = [
