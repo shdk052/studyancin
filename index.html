@@ -33,102 +33,367 @@
         };
 
         const vocabulary = [
-            { en: "a great deal", he: "הרבה מאוד, מידה רבה" },
-            { en: "Absolutely!", he: "בהחלט!, לחלוטין!" },
-            { en: "accident", he: "תאונה, מקרה" },
-            { en: "alive", he: "חי" },
-            { en: "apologize", he: "להתנצל" },
-            { en: "army", he: "צבא" },
-            { en: "as soon as", he: "ברגע ש..., בהקדם האפשרי" },
-            { en: "attack (n)", he: "התקפה" },
-            { en: "attack (v)", he: "להתקיף, לתקוף" },
-            { en: "awful", he: "נורא, איום" },
-            { en: "bad", he: "רע" },
-            { en: "be familiar with", he: "להכיר, להיות בקיא ב..." },
-            { en: "behavior", he: "התנהגות" },
-            { en: "blood", he: "דם" },
-            { en: "breath", he: "נשימה" },
-            { en: "bring back", he: "להחזיר" },
-            { en: "by accident", he: "בטעות, במקרה" },
-            { en: "challenge", he: "אתגר" },
-            { en: "come out", he: "לצאת, להתפרסם" },
-            { en: "come true", he: "להתגשם" },
-            { en: "comment", he: "הערה, תגובה" },
-            { en: "community", he: "קהילה" },
-            { en: "contact", he: "קשר, ליצור קשר" },
-            { en: "course", he: "קורס, מסלול, מהלך" },
-            { en: "crowd", he: "קהל, המון" },
-            { en: "cruel", he: "אכזרי" },
-            { en: "dark", he: "חשוך, כהה" },
-            { en: "demand", he: "דרישה, לתבוע" },
-            { en: "doubt", he: "ספק" },
-            { en: "dream", he: "חלום, לחלום" },
-            { en: "due", he: "צפוי, מועד לפירעון" },
-            { en: "emergency", he: "חירום" },
-            { en: "encourage", he: "לעודד" },
-            { en: "enter", he: "להיכנס" },
-            { en: "exact", he: "מדויק" },
-            { en: "fail", he: "להיכשל" },
-            { en: "form", he: "צורה, טופס, ליצור" },
-            { en: "go on", he: "להמשיך" },
-            { en: "government", he: "ממשלה" },
-            { en: "grade", he: "ציון, כיתה" },
-            { en: "great", he: "נהדר, גדול" },
-            { en: "heavily", he: "בכבדות, במידה רבה" },
-            { en: "highway", he: "כביש מהיר" },
-            { en: "hug", he: "חיחיבוק, לחבק" },
-            { en: "hurry", he: "מיהר, למהר" },
-            { en: "in addition (to)", he: "בנוסף (ל...)" },
-            { en: "in order to", he: "כדי, על מנת" },
-            { en: "indeed", he: "אכן, באמת" },
-            { en: "injure", he: "לפצוע" },
-            { en: "lock", he: "מנעול, לנעול" },
-            { en: "missing", he: "חסר, נעדר" },
-            { en: "moment", he: "רגע" },
-            { en: "obviously", he: "כמובן, בבירור" },
-            { en: "on purpose", he: "בכוונה" },
-            { en: "one another", he: "זה את זה, זה לזה" },
-            { en: "option", he: "אפשרות, אופציה" },
-            { en: "ought to", he: "צריך, חייב" },
-            { en: "permanent", he: "קבוע" },
-            { en: "play", he: "לשחק, הצגה" },
-            { en: "powerful", he: "חזק, רב עוצמה" },
-            { en: "practice", he: "תרגול, להתאמן" },
-            { en: "rare", he: "נדיר" },
-            { en: "reach", he: "להגיע, להשיג" },
-            { en: "record", he: "תקליט, שיא, לרשום" },
-            { en: "report", he: "דוח, לדווח" },
-            { en: "require", he: "לדרוש, להזדקק ל..." },
-            { en: "right away", he: "מיד, מייד" },
-            { en: "ring", he: "טבעת, לצלצל" },
-            { en: "rise", he: "לעלות, לקום" },
-            { en: "save", he: "להציל, לשמור" },
-            { en: "score", he: "תוצאה, ניקוד, להבקיע" },
-            { en: "search", he: "חיפוש, לחפש" },
-            { en: "season", he: "עונה" },
-            { en: "seem like", he: "נראה כמו" },
-            { en: "shout", he: "צעקה, לצעוק" },
-            { en: "skill", he: "מיומנות, כישרון" },
-            { en: "smell", he: "ריח, להריח" },
-            { en: "soldier", he: "חייל" },
-            { en: "star", he: "כוכב" },
-            { en: "strength", he: "כוח, חוזק" },
-            { en: "strong", he: "חזק" },
-            { en: "stupid", he: "טיפש" },
-            { en: "succeed", he: "להצליח" },
-            { en: "support", he: "תמיכה, לתמוך" },
-            { en: "take away", he: "לקחת, להסיר" },
-            { en: "team", he: "קבוצה, צוות" },
-            { en: "teenager", he: "נער, מתבגר" },
-            { en: "temporary", he: "זמני" },
-            { en: "terrible", he: "נורא" },
-            { en: "terrific", he: "נהדר, מצוין" },
-            { en: "truth", he: "אמת" },
-            { en: "underground", he: "תת-קרקעי, מחתרת" },
-            { en: "various", he: "מגוון, שונים" },
-            { en: "vote", he: "הצבעה, להצביע" },
-            { en: "weak", he: "חלש" }
-        ];
+            {
+                        "en": "adapt",
+                        "he": "להסתגל / להתאים"
+            },
+            {
+                        "en": "afraid",
+                        "he": "מפחד"
+            },
+            {
+                        "en": "aid",
+                        "he": "עזרה / סיוע"
+            },
+            {
+                        "en": "aim",
+                        "he": "מטרה / לכוון"
+            },
+            {
+                        "en": "all day long",
+                        "he": "כל היום / במשך כל היום"
+            },
+            {
+                        "en": "allow",
+                        "he": "להרשות / לאפשר"
+            },
+            {
+                        "en": "although",
+                        "he": "למרות ש... / אף על פי ש..."
+            },
+            {
+                        "en": "announce",
+                        "he": "להודיע / להכריז"
+            },
+            {
+                        "en": "appointment",
+                        "he": "פגישה / תור (לרופא וכדומה)"
+            },
+            {
+                        "en": "approximately",
+                        "he": "בערך / בקירוב"
+            },
+            {
+                        "en": "around",
+                        "he": "מסביב / בסביבה"
+            },
+            {
+                        "en": "as far as I know",
+                        "he": "למיטב ידיעתי / ככל הידוע לי"
+            },
+            {
+                        "en": "at first",
+                        "he": "בהתחלה / בתחילה"
+            },
+            {
+                        "en": "at present",
+                        "he": "כיום / כרגע / בזמן הנוכחי"
+            },
+            {
+                        "en": "Attention!",
+                        "he": "תשומת לב! / שים לב!"
+            },
+            {
+                        "en": "awake",
+                        "he": "ער"
+            },
+            {
+                        "en": "behave",
+                        "he": "להתנהג"
+            },
+            {
+                        "en": "bite",
+                        "he": "לנשוך / נשיכה"
+            },
+            {
+                        "en": "capable of",
+                        "he": "מסוגל ל..."
+            },
+            {
+                        "en": "carry out",
+                        "he": "לבצע / להוציא לפועל"
+            },
+            {
+                        "en": "come down",
+                        "he": "לרדת / לחלות (בביטויים מסוימים)"
+            },
+            {
+                        "en": "common",
+                        "he": "נפוץ / משותף"
+            },
+            {
+                        "en": "complete",
+                        "he": "להשלים / שלם"
+            },
+            {
+                        "en": "concern",
+                        "he": "דאגה / עניין / להדאיג"
+            },
+            {
+                        "en": "control",
+                        "he": "לשלוט / שליטה"
+            },
+            {
+                        "en": "damage",
+                        "he": "נזק / להזיק"
+            },
+            {
+                        "en": "deal with",
+                        "he": "להתמודד עם / לעסוק ב..."
+            },
+            {
+                        "en": "death",
+                        "he": "מוות"
+            },
+            {
+                        "en": "disappear",
+                        "he": "להיעלם"
+            },
+            {
+                        "en": "distance",
+                        "he": "מרחק"
+            },
+            {
+                        "en": "drum",
+                        "he": "תוף / לתופף"
+            },
+            {
+                        "en": "escape",
+                        "he": "לברוח / בריחה"
+            },
+            {
+                        "en": "female",
+                        "he": "נקבה / נקבי"
+            },
+            {
+                        "en": "few",
+                        "he": "מעט / כמה"
+            },
+            {
+                        "en": "first of all",
+                        "he": "קודם כל / ראשית כל"
+            },
+            {
+                        "en": "generally",
+                        "he": "בדרך כלל / באופן כללי"
+            },
+            {
+                        "en": "go back",
+                        "he": "לחזור"
+            },
+            {
+                        "en": "go out",
+                        "he": "לצאת (לבילוי וכדומה)"
+            },
+            {
+                        "en": "go up",
+                        "he": "לעלות"
+            },
+            {
+                        "en": "go well",
+                        "he": "להצליח / להתנהל כשורה"
+            },
+            {
+                        "en": "Good for you!",
+                        "he": "כל הכבוד לך! / יפה מאוד!"
+            },
+            {
+                        "en": "guide",
+                        "he": "להדריך / מדריך"
+            },
+            {
+                        "en": "hand in",
+                        "he": "להגיש / למסור (למשל שיעורי בית)"
+            },
+            {
+                        "en": "hand out",
+                        "he": "לחלק (למשל דפים)"
+            },
+            {
+                        "en": "have a plan",
+                        "he": "שיש לו תוכנית / לתכנן"
+            },
+            {
+                        "en": "height",
+                        "he": "גובה"
+            },
+            {
+                        "en": "high",
+                        "he": "גבוה"
+            },
+            {
+                        "en": "if I were you",
+                        "he": "אם הייתי במקומך"
+            },
+            {
+                        "en": "ill",
+                        "he": "חולה"
+            },
+            {
+                        "en": "in the end",
+                        "he": "בסופו של דבר / בסוף"
+            },
+            {
+                        "en": "jazz",
+                        "he": "ג\"אז (סגנון מוזיקה)"
+            },
+            {
+                        "en": "jewelry",
+                        "he": "תכשיטים"
+            },
+            {
+                        "en": "joy",
+                        "he": "שמחה / אושר"
+            },
+            {
+                        "en": "lake",
+                        "he": "אגם"
+            },
+            {
+                        "en": "lately",
+                        "he": "לאחרונה"
+            },
+            {
+                        "en": "latest",
+                        "he": "העדכני ביותר / האחרון ביותר"
+            },
+            {
+                        "en": "leave out",
+                        "he": "להשמיט / להשאיר בחוץ"
+            },
+            {
+                        "en": "local",
+                        "he": "מקומי"
+            },
+            {
+                        "en": "look out",
+                        "he": "להיזהר / להשקיף"
+            },
+            {
+                        "en": "look up",
+                        "he": "לחפש (מידע במילון/ספר) / להביט למעלה"
+            },
+            {
+                        "en": "majority",
+                        "he": "רוב"
+            },
+            {
+                        "en": "male",
+                        "he": "זכר / זכרי"
+            },
+            {
+                        "en": "medicine",
+                        "he": "תרופה / רפואה"
+            },
+            {
+                        "en": "nearby",
+                        "he": "בקרבת מקום / סמוך"
+            },
+            {
+                        "en": "obvious",
+                        "he": "ברור מאליו / מובן מאליו"
+            },
+            {
+                        "en": "poor",
+                        "he": "עני / מסכן"
+            },
+            {
+                        "en": "potential",
+                        "he": "פוטנציאל / פוטנציאלי"
+            },
+            {
+                        "en": "put off",
+                        "he": "לדחות (ליום אחר)"
+            },
+            {
+                        "en": "put on",
+                        "he": "ללבוש / לעטות"
+            },
+            {
+                        "en": "quite a bit",
+                        "he": "די הרבה / לא מעט"
+            },
+            {
+                        "en": "sharp",
+                        "he": "חד"
+            },
+            {
+                        "en": "simply",
+                        "he": "פשוט / בצורה פשוטה"
+            },
+            {
+                        "en": "straight",
+                        "he": "ישר"
+            },
+            {
+                        "en": "strategy",
+                        "he": "אסטרטגיה"
+            },
+            {
+                        "en": "swimming",
+                        "he": "שחייה"
+            },
+            {
+                        "en": "take a break",
+                        "he": "לקחת הפסקה"
+            },
+            {
+                        "en": "take a deep breath",
+                        "he": "לקחת נשימה עמוקה"
+            },
+            {
+                        "en": "take an exam",
+                        "he": "להיבחן / לעשות מבחן"
+            },
+            {
+                        "en": "take back",
+                        "he": "לקחת בחזרה / להתחרט על מילים שנאמרו"
+            },
+            {
+                        "en": "take out",
+                        "he": "להוציא"
+            },
+            {
+                        "en": "take seriously",
+                        "he": "לקחת ברצינות"
+            },
+            {
+                        "en": "take up",
+                        "he": "להתחיל לעסוק ב... (תחביב וכדומה) / לתפוס (מקום או זמן)"
+            },
+            {
+                        "en": "tell",
+                        "he": "להגיד / לספר"
+            },
+            {
+                        "en": "tend to",
+                        "he": "לנטות ל... (לעשות משהו)"
+            },
+            {
+                        "en": "train",
+                        "he": "להתאמן / רכבת"
+            },
+            {
+                        "en": "volunteer",
+                        "he": "להתנדב / מתנדב"
+            },
+            {
+                        "en": "western",
+                        "he": "מערבי"
+            },
+            {
+                        "en": "what if...?",
+                        "he": "מה אם...?"
+            },
+            {
+                        "en": "wonder",
+                        "he": "לתהות / פלא"
+            },
+            {
+                        "en": "worried",
+                        "he": "מודאג"
+            }
+];
 
         function App() {
             const [activeTab, setActiveTab] = useState('dictionary');
