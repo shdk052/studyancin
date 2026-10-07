@@ -232,6 +232,34 @@
                 setFinished(false);
             };
 
+            useEffect(() => {
+                window.skipQuiz = () => setFinished(true);
+                window.resetQuiz = reset;
+                window.answerQuiz = () => handleAnswer(data[idx]);
+                window.goToQuizQuestion = (questionNumber) => {
+                    const nextIdx = Number(questionNumber) - 1;
+                    if (!Number.isInteger(nextIdx) || nextIdx < 0 || nextIdx >= data.length) {
+                        console.warn(`בחרו שאלה בין 1 ל-${data.length}.`);
+                        return;
+                    }
+                    setIdx(nextIdx);
+                    setFinished(false);
+                };
+                window.revealQuizAnswer = () => {
+                    const current = data[idx];
+                    console.log(`${current.en} = ${current.he}`);
+                    return current;
+                };
+
+                return () => {
+                    delete window.skipQuiz;
+                    delete window.resetQuiz;
+                    delete window.answerQuiz;
+                    delete window.goToQuizQuestion;
+                    delete window.revealQuizAnswer;
+                };
+            }, [idx, data, answers]);
+
             if (finished) {
                 const score = Object.values(answers).filter(a => a.isCorrect).length;
                 return (
